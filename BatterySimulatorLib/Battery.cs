@@ -11,7 +11,7 @@ namespace BatterySimulatorLib
 {
     public class Battery : IPowerStorage, IPowerDelivery
     {
-        private System.Timers.Timer _clock { get; set; }
+        public System.Timers.Timer clock { get; set; }
 
         public double state_of_charge_Wh { get; set; }
 
@@ -64,19 +64,19 @@ namespace BatterySimulatorLib
             stopCharge();
         }
 
-        public Battery(double capacity)
+        public Battery(double capacity_Wh)
         {
-            this.capacity_Wh = capacity;
+            this.capacity_Wh = capacity_Wh;
             state_of_charge_Wh = 0.0d;
             state_of_health_pct = 100.0d;
 
             charge_power = 0.0d;
             charge_to_soc_point = -1.0d;
 
-            _clock = new System.Timers.Timer(1000);
-            _clock.Elapsed += onClockTick;
-            _clock.AutoReset = true;
-            _clock.Start();
+            clock = new System.Timers.Timer(1000);
+            clock.Elapsed += onClockTick;
+            clock.AutoReset = true;
+            clock.Start();
         }
 
         public void onClockTick(object source, ElapsedEventArgs e)
